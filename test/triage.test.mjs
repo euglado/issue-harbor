@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import path from 'node:path';
 import { addIssueLabels, labelsForIssue, normalizeText, runTriage, validateConfig } from '../src/triage.mjs';
 import { ensureInsideWorkspace } from '../src/index.mjs';
 
@@ -127,7 +128,8 @@ test('does not retry permission or validation failures', async () => {
 });
 
 test('rejects configuration paths outside the workspace', () => {
-  assert.doesNotThrow(() => ensureInsideWorkspace('C:\\repo', 'C:\\repo\\config.json'));
-  assert.throws(() => ensureInsideWorkspace('C:\\repo', 'C:\\other\\secret.json'), /inside GITHUB_WORKSPACE/);
-  assert.throws(() => ensureInsideWorkspace('C:\\repo', 'C:\\repo'), /inside GITHUB_WORKSPACE/);
+  const workspace = path.resolve('issue-harbor-test-workspace');
+  assert.doesNotThrow(() => ensureInsideWorkspace(workspace, path.join(workspace, 'config.json')));
+  assert.throws(() => ensureInsideWorkspace(workspace, path.resolve('issue-harbor-test-outside', 'secret.json')), /inside GITHUB_WORKSPACE/);
+  assert.throws(() => ensureInsideWorkspace(workspace, workspace), /inside GITHUB_WORKSPACE/);
 });
