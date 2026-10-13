@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "label": "bug",
+      "keywords": ["bug", "crash", "does not work", "not working"]
+    },
+    {
+      "label": "question",
+      "keywords": ["how do I", "how can I", "question", "help"]
+    },
+    {
+      "label": "documentation",
+      "keywords": ["docs", "documentation", "README"]
+    },
+    {
+      "label": "enhancement",
+      "keywords": ["feature request", "would be useful", "please add"]
+    }
+  ]
+}

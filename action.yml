@@ -1,0 +1,29 @@
+name: IssueHarbor
+description: Add existing GitHub issue labels using transparent, configurable keyword rules.
+author: euglado
+branding:
+  icon: inbox
+  color: blue
+inputs:
+  token:
+    description: GitHub token with Issues write permission.
+    required: false
+    default: ''
+  config-path:
+    description: Workspace-relative path to the IssueHarbor JSON rules file.
+    required: false
+    default: .github/issue-harbor.json
+  dry-run:
+    description: Show the labels that would be added without calling the GitHub API.
+    required: false
+    default: 'false'
+outputs:
+  status:
+    description: Processing result (labeled, dry_run, no_match, or skipped).
+  issue-number:
+    description: Issue number processed, when applicable.
+  labels:
+    description: Comma-separated labels matched by the configured rules.
+runs:
+  using: node24
+  main: src/index.mjs
